@@ -141,3 +141,25 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# ==========================
+# Project-specific
+# ==========================
+
+# Design references, moodboards and AI-generated drafts
+references/
+
+# Temporary exports
+exports/
+
+# Temporary drafts
+drafts/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
