@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   font-family: Inter, ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #2f2a24;
   background: #f4eadb;
@@ -56,8 +56,7 @@ button {
   animation: scene-breathe 1100ms ease-out both;
 }
 
-.scene-image--help {
-  height: 74%;
+.story-frame[data-screen="help"] .scene-image {
   object-position: center top;
 }
 
@@ -110,9 +109,9 @@ button {
 .story-card {
   z-index: 2;
   align-self: end;
-  min-height: 284px;
+  min-height: 272px;
   margin: auto 12px calc(10px + env(safe-area-inset-bottom));
-  padding: 20px 20px 18px;
+  padding: 22px 20px 17px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(137, 113, 79, 0.2);
@@ -132,19 +131,10 @@ button {
   animation: content-in 460ms 1240ms ease-out forwards;
 }
 
-.scene-kicker {
-  margin: 0 0 10px;
-  color: #78906d;
-  font-size: 0.76rem;
-  font-weight: 760;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .story-card h1 {
   margin: 0 0 12px;
   color: #2f2a24;
-  font-size: clamp(1.72rem, 7vw, 2.22rem);
+  font-size: clamp(1.66rem, 6.8vw, 2.16rem);
   line-height: 1.05;
   letter-spacing: 0;
 }
@@ -152,8 +142,81 @@ button {
 .story-card p:not(.scene-kicker) {
   margin: 0 0 8px;
   color: #5d5146;
-  font-size: 1rem;
-  line-height: 1.43;
+  font-size: 0.98rem;
+  line-height: 1.42;
+}
+
+.dialogue-line {
+  color: #2f2a24;
+  font-size: clamp(1.72rem, 7vw, 2.22rem);
+  font-weight: 760;
+  line-height: 1.08;
+}
+
+.story-card strong {
+  color: #2f2a24;
+  font-weight: 760;
+}
+
+.choice-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.choice-button {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(116, 101, 79, 0.18);
+  border-radius: 16px;
+  color: #3f3830;
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: 0 8px 20px rgba(79, 61, 43, 0.08);
+  cursor: pointer;
+  text-align: left;
+  font-weight: 690;
+  line-height: 1.25;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.choice-button:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 5px 14px rgba(79, 61, 43, 0.08);
+}
+
+.choice-button:focus-visible {
+  outline: 3px solid rgba(111, 135, 144, 0.32);
+  outline-offset: 3px;
+}
+
+.thought-kicker {
+  width: fit-content;
+  margin: 0 0 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #526f58;
+  background: rgba(120, 144, 109, 0.14);
+  font-size: 0.78rem;
+  font-weight: 760;
+}
+
+.selected-thought {
+  margin: 0 0 14px;
+  padding: 13px 14px;
+  border: 1px solid rgba(116, 101, 79, 0.16);
+  border-radius: 18px;
+  color: #2f2a24;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 20px rgba(79, 61, 43, 0.08);
+  font-size: 1.04rem;
+  font-weight: 760;
+}
+
+.thought-note,
+.quiet-note {
+  color: #746b60;
+  font-size: 0.92rem;
 }
 
 .primary-action,
@@ -230,7 +293,7 @@ button {
 
 @media (max-height: 700px) {
   .story-card {
-    min-height: 258px;
+    min-height: 248px;
     padding: 18px;
   }
 
