@@ -6,4 +6,5 @@ This folder contains application-ready assets used by the MVP runtime.
 - `src/assets/images/scenarios/` contains optimized or selected images per scenario.
 - `src/assets/images/ui/` is reserved for small interface assets if CSS is not enough.
 
-Temporary MVP images may be copied from `references/`, but app code should import from `src/assets`.
+- User-facing app illustrations must not be imported from `references/`.
+- If a needed illustration does not exist yet, prepare a shot list first and wait for approval before generating or adding a new working asset.

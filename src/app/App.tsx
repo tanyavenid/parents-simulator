@@ -3,7 +3,7 @@ import hallwayScene from "../assets/images/scenarios/shoes/shot-001-establishing
 import helpRequestScene from "../assets/images/scenarios/shoes/shot-002-parent-pov-help-request.png";
 
 type PreviewScreen = "intro" | "help" | "choice" | "thought" | "context";
-type FirstThoughtId = "delay" | "boundaries" | "whim" | "unsure";
+type FirstThoughtId = "spite" | "help" | "insist";
 
 type FirstThought = {
   id: FirstThoughtId;
@@ -13,34 +13,29 @@ type FirstThought = {
   note: string;
 };
 
+const progressStages = ["Ситуация", "Первая мысль", "Контекст", "Возможные причины", "Что попробовать"] as const;
+
 const firstThoughts: FirstThought[] = [
   {
-    id: "delay",
-    label: "Он специально тянет время.",
-    thoughtTitle: "Это очень понятная мысль.",
-    thoughtText: "Когда мы торопимся, мозг быстро ищет объяснение: «он делает это специально».",
-    note: "Пока это не факт, а первая гипотеза. Дальше мы проверим, что ещё могло происходить.",
+    id: "spite",
+    label: "Он делает это назло.",
+    thoughtTitle: "Так действительно кажется многим родителям.",
+    thoughtText: "Но в три года ребёнок ещё не способен специально строить поведение, чтобы «испортить вам утро».",
+    note: "Гораздо полезнее сначала разобраться, какая потребность стоит за этим поведением.",
   },
   {
-    id: "boundaries",
-    label: "Он проверяет мои границы.",
-    thoughtTitle: "Возможно.",
-    thoughtText: "Когда поведение повторяется в неудобный момент, мозг легко видит в нём проверку.",
-    note: "Иногда такая версия бывает полезной, но сначала стоит собрать немного контекста.",
+    id: "help",
+    label: "Ладно, сделаю сама — так будет быстрее.",
+    thoughtTitle: "Желание помочь совершенно естественно.",
+    thoughtText: "Но если каждый раз делать всё за ребёнка сразу после первой просьбы, ему становится сложнее закрепить самостоятельность.",
+    note: "Возможно, сейчас ему нужна вовсе не помощь с ботинками.",
   },
   {
-    id: "whim",
-    label: "Он просто капризничает.",
-    thoughtTitle: "Слово «каприз» быстро приходит на ум.",
-    thoughtText: "Оно помогает назвать раздражающий момент, но не всегда объясняет, что именно происходит.",
-    note: "За ним могут скрываться усталость, дискомфорт, перегруз или желание помощи.",
-  },
-  {
-    id: "unsure",
-    label: "Не знаю. Хочу разобраться.",
-    thoughtTitle: "Это хорошая пауза.",
-    thoughtText: "Не знать сразу — иногда честнее, чем быстро выбрать единственную версию.",
-    note: "Пауза помогает не застрять в первой реакции и посмотреть на ситуацию шире.",
+    id: "insist",
+    label: "Он умеет сам. Нужно просто настоять.",
+    thoughtTitle: "Навык не всегда доступен одинаково.",
+    thoughtText: "Если ребёнок действительно умеет обуваться, это ещё не значит, что он всегда может воспользоваться этим навыком.",
+    note: "Иногда ему мешают усталость, эмоции или другие причины, которые не видны с первого взгляда.",
   },
 ];
 
@@ -53,7 +48,7 @@ export default function App() {
   const imageAlt = isSceneBackground
     ? "Ребёнок сидит в прихожей с ботинком в руках"
     : "Ребёнок смотрит на родителя и протягивает ботинок";
-  const step = screen === "intro" ? 1 : screen === "help" ? 2 : screen === "choice" ? 3 : screen === "thought" ? 4 : 5;
+  const stageIndex = screen === "intro" || screen === "help" ? 0 : screen === "choice" || screen === "thought" ? 1 : 2;
   const thought = firstThoughts.find((item) => item.id === selectedThought) ?? firstThoughts[0];
 
   function chooseThought(thoughtId: FirstThoughtId) {
@@ -69,11 +64,11 @@ export default function App() {
 
         <header className="story-header" aria-label="Прогресс прохождения">
           <div className="progress-dots" aria-hidden="true">
-            {[1, 2, 3, 4, 5].map((dot) => (
-              <span key={dot} className={dot <= step ? "progress-dot is-active" : "progress-dot"} />
+            {progressStages.map((stage, index) => (
+              <span key={stage} className={index <= stageIndex ? "progress-dot is-active" : "progress-dot"} />
             ))}
           </div>
-          <span className="progress-label">Шаг {step} из 5</span>
+          <span className="progress-label">{progressStages[stageIndex]}</span>
         </header>
 
         <section className="story-card" aria-labelledby="scene-title" key={screen}>
@@ -118,9 +113,9 @@ export default function App() {
 
             {screen === "context" && (
               <>
-                <p className="thought-kicker">Сбор контекста</p>
-                <h1 id="scene-title">Теперь посмотрим шире.</h1>
-                <p>Следующий шаг — собрать несколько деталей о сне, усталости, обуви и спешке.</p>
+                <p className="thought-kicker">Проверяем гипотезу</p>
+                <h1 id="scene-title">Может быть, сейчас просто не хватает ресурса?</h1>
+                <p>Следующий шаг — спокойно проверить сон, голод, самочувствие и признаки усталости.</p>
                 <p className="quiet-note">Пока это заглушка для следующей итерации.</p>
               </>
             )}
@@ -140,7 +135,7 @@ export default function App() {
 
           {screen === "thought" && (
             <button className="primary-action" type="button" onClick={() => setScreen("context")}>
-              Давай разберёмся
+              Давайте проверим
             </button>
           )}
 
